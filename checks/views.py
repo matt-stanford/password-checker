@@ -1,5 +1,7 @@
 import requests
 import hashlib
+import random
+from string import digits, punctuation, ascii_lowercase, ascii_uppercase
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
@@ -38,3 +40,29 @@ def password_check(request):
             message = f'{password} was NOT found :)'
         messages.success(request, message)
         return redirect('index')
+
+def password_generator(request):
+    # symbols = ascii_lowercase + ascii_uppercase + digits + punctuation
+    secure_random = random.SystemRandom()
+
+    pwLength = int(request.POST.get('pwLength', 16))
+    # pwUpper = request.POST['pwUpper']
+    # pwLower = request.POST['pwLower']
+    # pwSymbols = request.POST['pwSymbols']
+    # pwNumbers = request.POST['pwNumbers']
+    
+    characters = list(ascii_lowercase)
+
+    if request.POST.get('pwUpper'):
+        characters.extend(list(ascii_uppercase))
+    if request.POST.get('pwSymbols'):
+        characters.extend(list(punctuation))
+    if request.POST.get('pwNumbers'):
+        characters.extend(list(digits))
+
+    password = ''.join(secure_random.choice(characters) for i in range(pwLength))
+    context = {
+        'password': password
+        }
+        
+    return render(request, 'password_generator.html', context)
