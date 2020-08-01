@@ -35,9 +35,9 @@ def password_check(request):
         password = request.POST['password']
         count = pwned_api_check(password)
         if count:
-            message = f'{password} has been seen {count} times before!'
+            message = f'{password} has been seen {count} times before! 😭'
         else:
-            message = f'{password} was NOT found :)'
+            message = f'{password} was NOT found 🥳'
         messages.success(request, message)
         return redirect('index')
 

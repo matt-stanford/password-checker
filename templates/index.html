@@ -21,7 +21,7 @@
 
     {% if messages %}
         {% for message in messages %}
-            {% if 'was NOT found :)' in message.message %}
+            {% if 'was NOT found' in message.message %}
                 <div class="green-container">
                     <div class="medium-container">
                         <h2>Good news 🤩</h2>
@@ -31,7 +31,7 @@
             {% else %}
                 <div class="red-container">
                     <div class="medium-container">
-                        <h2>Oh no 😭</h2>
+                        <h2>Oh no!! 😧</h2>
                         <h3>{{ message }}</h3>
                     </div>
                 </div>
